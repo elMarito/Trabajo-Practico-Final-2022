@@ -18,7 +18,8 @@ var inputTelefono = document.getElementById("contactForm4");
 var inputLocalidad = document.getElementById("contactForm5");
 var inputComentario = document.getElementById("contactForm6");
 var btnSend = document.getElementById("contact-btn");
-btnSend.disabled = true; //si utilizamos la clase quitar esto?
+//btnSend.disabled = true  //si utilizamos la clase quitar esto?
+enableBtn(false);
 //const parmensaje = document.getElementById("mensaje") as HTMLParagraphElement; // para mensajes de error en pantalla.
 //-----------------------------------------------------------------------------
 function enviarMensaje(texto) {
@@ -26,6 +27,18 @@ function enviarMensaje(texto) {
     console.log(texto);
     // o enviarlo a pantalla
     //parmensaje.innerText = texto;
+}
+//-----------------------------------------------------------------------------
+function enableBtn(enable) {
+    btnSend.disabled = enable; //habilitar boton 
+    if (enable) {
+        if (btnSend.classList.contains("disabled"))
+            btnSend.classList.remove("disabled");
+    }
+    else {
+        if (!btnSend.classList.contains("disabled"))
+            btnSend.classList.add("disabled");
+    }
 }
 //-----------------------------------------------------------------------------
 function isValidText(texto) {
@@ -47,9 +60,9 @@ function isValidEmail(texto) {
 }
 //-----------------------------------------------------------------------------
 function isValidPhone(texto) {
-    console.log({ texto: texto });
+    //console.log({ texto });
     var emailRegex = /^[0-9- \(\+)]{0,63}$/;
-    return emailRegex.test(texto);
+    return (texto.length > 5 && emailRegex.test(texto));
 }
 //-----------------------------------------------------------------------------
 function isFormComplete() {
@@ -60,14 +73,11 @@ function isFormComplete() {
         && isValidText(inputLocalidad.value)
         && isValidText(inputComentario.value));
     //console.log({isComplete});
-    if (isComplete) {
-        if (btnSend.classList.contains("disabled"))
-            btnSend.classList.remove("disabled");
-    }
-    else {
-        if (!btnSend.classList.contains("disabled"))
-            btnSend.classList.add("disabled");
-    }
+    /*  if (isComplete) {
+        if (btnSend.classList.contains("disabled")) btnSend.classList.remove("disabled")
+      } else {
+        if (!btnSend.classList.contains("disabled")) btnSend.classList.add("disabled");
+      }*/
     return isComplete;
     //  return isValid() && isValidNombre() && isValidTelefono() && isValidEmail() && isValidLocalidad() && isValidComentario() 
 }
@@ -75,70 +85,75 @@ function isFormComplete() {
 //-----------------------------------------------------------------------------
 inputNombre.addEventListener("input", function () {
     var nombre = String(inputNombre.value);
-    btnSend.disabled = true;
+    //  btnSend.disabled = true;
     if (!isValidText(nombre)) {
+        enableBtn(false);
         enviarMensaje("Ingrese su nombre.");
         return;
     }
-    if (isFormComplete())
-        btnSend.disabled = false; //habilitar boton 
+    enableBtn(isFormComplete());
+    //  if (isFormComplete()) btnSend.disabled = false; //habilitar boton 
 });
-//-----------------------------------------------------------------------------
 //-----------------------------------------------------------------------------
 inputEmpresa.addEventListener("input", function () {
     var emmpresa = String(inputEmpresa.value);
-    btnSend.disabled = true;
+    //  btnSend.disabled = true;
     if (!isValidText(emmpresa)) {
+        enableBtn(false);
         enviarMensaje("Ingrese el nombre de su empresa.");
         return;
     }
-    if (isFormComplete())
-        btnSend.disabled = false; //habilitar boton 
+    enableBtn(isFormComplete());
+    //  if (isFormComplete()) btnSend.disabled = false; //habilitar boton 
 });
 //-----------------------------------------------------------------------------
 inputEmail.addEventListener("input", function () {
     var email = String(inputEmail.value);
-    btnSend.disabled = true;
+    //  btnSend.disabled = true;
     if (!isValidEmail(email)) {
+        enableBtn(false);
         enviarMensaje("Ingrese un correo electrónico válido.");
         return;
     }
-    if (isFormComplete())
-        btnSend.disabled = false; //habilitar boton 
+    enableBtn(isFormComplete());
+    //  if (isFormComplete()) btnSend.disabled = false; //habilitar boton 
 });
 //-----------------------------------------------------------------------------
 inputTelefono.addEventListener("input", function () {
     //  inputEmail = event.target;
     var phone = String(inputTelefono.value);
-    btnSend.disabled = true;
+    //  btnSend.disabled = true;
     if (!isValidPhone(phone)) {
+        enableBtn(false);
         enviarMensaje("Ingrese un número de telefono."); //throw new Error(    'No es un nro de telefono valido')
         return;
     }
-    if (isFormComplete())
-        btnSend.disabled = false; //habilitar boton 
+    enableBtn(isFormComplete());
+    //  if (isFormComplete()) btnSend.disabled = false; //habilitar boton 
 });
 //-----------------------------------------------------------------------------
 inputLocalidad.addEventListener("input", function () {
     var localidad = String(inputLocalidad.value);
-    btnSend.disabled = true;
+    //  btnSend.disabled = true;
     if (!isValidText(localidad)) {
+        enableBtn(false);
         enviarMensaje("Ingrese el nombre de su Localidad.");
         return;
     }
-    if (isFormComplete())
-        btnSend.disabled = false; //habilitar boton   
+    enableBtn(isFormComplete());
+    //  if (isFormComplete()) btnSend.disabled = false; //habilitar boton 
 });
 //-----------------------------------------------------------------------------
 inputComentario.addEventListener("input", function () {
     var comentario = String(inputComentario.value);
-    btnSend.disabled = true;
+    //  btnSend.disabled = true;
     if (!isValidText(comentario)) {
+        enableBtn(false);
         enviarMensaje("Ingrese una breve descripción del problema.");
         return;
     }
-    if (isFormComplete())
-        btnSend.disabled = false; //habilitar boton   
+    enableBtn(isFormComplete());
+    //  if (isFormComplete()) btnSend.disabled = false; //habilitar boton 
 });
 //-----------------------------------------------------------------------------
 //-----------------------------------------------------------------------------
@@ -146,11 +161,11 @@ btnSend.addEventListener("click", function () {
     // validar. no ya viene validdado.
     // let dato: string = inputNombre.value;
     // let email: string = inputEmail.value;
-    alert("Datos enviados con éxito. En breve nos contactaremos. Muchas gracias por consultarnos.");
+    //  alert("Datos enviados con éxito. En breve nos contactaremos. Muchas gracias por consultarnos.");
     console.log("Datos enviados con éxito. En breve nos contactaremos. Muchas gracias por consultarnos.");
     // limpiar el form.
     //    btnSend.hidden = true;  
-    btnSend.disabled = true;
+    //btnSend.disabled = true;
     inputNombre.value = "";
     inputEmpresa.value = "";
     inputEmail.value = "";
@@ -159,9 +174,4 @@ btnSend.addEventListener("click", function () {
     inputComentario.value = "";
     // ¿ subir al inicio de la pagina ?
 });
-//-----------------------------------------------------------------------------
-//-----------------------------------------------------------------------------
-/*function isValidNumber(dato: number): boolean {
-  return dato > 0;
-}*/
 //-----------------------------------------------------------------------------
