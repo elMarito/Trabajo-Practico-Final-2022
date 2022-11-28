@@ -11,6 +11,7 @@ function toggleText() {
     }
 }
 //-----------------------------------------------------------------------------
+var maxComentario = 250;
 var inputNombre = document.getElementById("contactForm1");
 var inputEmpresa = document.getElementById("contactForm2"); // deberia ser opcional ?
 var inputEmail = document.getElementById("contactForm3");
@@ -30,7 +31,7 @@ function enviarMensaje(texto) {
 }
 //-----------------------------------------------------------------------------
 function enableBtn(enable) {
-    btnSend.disabled = enable; //habilitar boton 
+    btnSend.disabled = !enable; //habilitar boton 
     if (enable) {
         if (btnSend.classList.contains("disabled"))
             btnSend.classList.remove("disabled");
@@ -41,9 +42,10 @@ function enableBtn(enable) {
     }
 }
 //-----------------------------------------------------------------------------
-function isValidText(texto) {
+function isValidText(texto, max) {
+    if (max === void 0) { max = 50; }
     //  console.log({texto});  
-    return (texto.length >= 3 && texto.length <= 50);
+    return (texto.length >= 3 && texto.length <= max);
 }
 //-----------------------------------------------------------------------------
 function isValidEmail(texto) {
@@ -71,7 +73,7 @@ function isFormComplete() {
         && isValidEmail(inputEmail.value)
         && isValidPhone(inputTelefono.value)
         && isValidText(inputLocalidad.value)
-        && isValidText(inputComentario.value));
+        && isValidText(inputComentario.value, maxComentario));
     //console.log({isComplete});
     /*  if (isComplete) {
         if (btnSend.classList.contains("disabled")) btnSend.classList.remove("disabled")
@@ -88,7 +90,7 @@ inputNombre.addEventListener("input", function () {
     //  btnSend.disabled = true;
     if (!isValidText(nombre)) {
         enableBtn(false);
-        enviarMensaje("Ingrese su nombre.");
+        enviarMensaje("Ingrese su nombre. (entre 3 y 50 caracteres)");
         return;
     }
     enableBtn(isFormComplete());
@@ -100,7 +102,7 @@ inputEmpresa.addEventListener("input", function () {
     //  btnSend.disabled = true;
     if (!isValidText(emmpresa)) {
         enableBtn(false);
-        enviarMensaje("Ingrese el nombre de su empresa.");
+        enviarMensaje("Ingrese el nombre de su empresa. (entre 3 y 50 caracteres)");
         return;
     }
     enableBtn(isFormComplete());
@@ -125,7 +127,7 @@ inputTelefono.addEventListener("input", function () {
     //  btnSend.disabled = true;
     if (!isValidPhone(phone)) {
         enableBtn(false);
-        enviarMensaje("Ingrese un número de telefono."); //throw new Error(    'No es un nro de telefono valido')
+        enviarMensaje("Ingrese un número de telefono válido. (minimo 6 digitos)"); //throw new Error(    'No es un nro de telefono valido')
         return;
     }
     enableBtn(isFormComplete());
@@ -137,7 +139,7 @@ inputLocalidad.addEventListener("input", function () {
     //  btnSend.disabled = true;
     if (!isValidText(localidad)) {
         enableBtn(false);
-        enviarMensaje("Ingrese el nombre de su Localidad.");
+        enviarMensaje("Ingrese el nombre de su Localidad. (entre 3 y 50 caracteres)");
         return;
     }
     enableBtn(isFormComplete());
@@ -147,9 +149,9 @@ inputLocalidad.addEventListener("input", function () {
 inputComentario.addEventListener("input", function () {
     var comentario = String(inputComentario.value);
     //  btnSend.disabled = true;
-    if (!isValidText(comentario)) {
+    if (!isValidText(comentario, maxComentario)) {
         enableBtn(false);
-        enviarMensaje("Ingrese una breve descripción del problema.");
+        enviarMensaje("Ingrese una breve descripción del problema. (entre 3 y 250 caracteres)");
         return;
     }
     enableBtn(isFormComplete());
@@ -158,14 +160,11 @@ inputComentario.addEventListener("input", function () {
 //-----------------------------------------------------------------------------
 //-----------------------------------------------------------------------------
 btnSend.addEventListener("click", function () {
-    // validar. no ya viene validdado.
-    // let dato: string = inputNombre.value;
-    // let email: string = inputEmail.value;
+    // validar. no ya viene validado.
     //  alert("Datos enviados con éxito. En breve nos contactaremos. Muchas gracias por consultarnos.");
     console.log("Datos enviados con éxito. En breve nos contactaremos. Muchas gracias por consultarnos.");
     // limpiar el form.
-    //    btnSend.hidden = true;  
-    //btnSend.disabled = true;
+    enableBtn(false);
     inputNombre.value = "";
     inputEmpresa.value = "";
     inputEmail.value = "";
