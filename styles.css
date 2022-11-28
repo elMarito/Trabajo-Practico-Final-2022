@@ -143,6 +143,11 @@ th{
     border-style: solid;
     font-size: 18px;
 }
+.disabled {
+    /* background-color: #a0a5ab;*/
+    background-color: rgb(150, 8, 8);
+    color: white;
+}
 .footer-list{
     margin-top: 10px;
     text-align: center;
@@ -156,8 +161,4 @@ th{
     color: white;
     text-align: center;
     font-weight: 300;
-
-.disabled {
-    background-color: rgb(150, 8, 8);
-    color: white;
 }
