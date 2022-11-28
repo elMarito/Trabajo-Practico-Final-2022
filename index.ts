@@ -170,7 +170,8 @@ btnSend.addEventListener("click", () => {
   // limpiar el form.
   //    btnSend.hidden = true;  
   //btnSend.disabled = true;
-
+  
+  enableBtn(false);
   inputNombre.value = "";
   inputEmpresa.value = "";
   inputEmail.value = "";
