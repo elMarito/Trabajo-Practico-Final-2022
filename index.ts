@@ -35,7 +35,7 @@ function enviarMensaje(texto: string) {
 }
 //-----------------------------------------------------------------------------
 function enableBtn(enable: boolean){
-  btnSend.disabled = enable; //habilitar boton 
+  btnSend.disabled =!enable; //habilitar boton 
   if (enable) {
     if (btnSend.classList.contains("disabled")) btnSend.classList.remove("disabled")
   } else {
