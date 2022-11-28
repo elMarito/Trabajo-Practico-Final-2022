@@ -145,5 +145,6 @@ th{
 }
 
 .disabled {
-    background-color: #a0a5ab;
+    background-color: rgb(150, 8, 8);
+    color: white;
 }
