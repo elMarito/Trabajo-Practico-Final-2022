@@ -157,4 +157,7 @@ th{
     text-align: center;
     font-weight: 300;
 
+.disabled {
+    background-color: rgb(150, 8, 8);
+    color: white;
 }
